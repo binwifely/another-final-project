@@ -1,4 +1,3 @@
-from typing import Any
 from pygame import*
 
 class Vehicle(sprite.Sprite):
@@ -10,23 +9,20 @@ class Vehicle(sprite.Sprite):
         self.speed = speed
         self.rect.x = x
         self.rect.y = y
-    
         #self.rect.center = [x, y]
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
-    def update(self ) :
-        self.rect.y += self.speed
-        
-   
+
+    def move(self):
+        keys_pressed = key.get_pressed()
+        if keys_pressed[K_a] and self.rect.x > 120:
+            self.rect.x -= self.speed
+        if keys_pressed[K_d] and self.rect.x < 420:
+            self.rect.x += self.speed
+
 
 class Player(Vehicle):
     def __init__(self, image_name, x, y, width, height, speed):
         super().__init__(image_name, x, y, width, height, speed)
 
-    def move(self):
-        keys_pressed = key.get_pressed()
-        if keys_pressed[K_a] and self.rect.x > 210:
-            self.rect.x -= self.speed
-        if keys_pressed[K_d] and self.rect.x < 530:
-            self.rect.x += self.speed
